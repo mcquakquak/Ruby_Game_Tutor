@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class RubyController : MonoBehaviour
 {
-
+    public int maxHealth = 100;
+    public int currentHealth;
     public GameObject Throwing_Knife;
     public Animator animator;
     public Vector2 lookDirection = new Vector2(1,0);
@@ -14,11 +15,14 @@ public class RubyController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(currentHealth);
+
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         Vector2 position = transform.position;
@@ -54,5 +58,13 @@ public class RubyController : MonoBehaviour
         projectile.Launch(lookDirection, 500);
 
     }
+  public void changeCurrentHealth(int changeInHealth) 
+    {
+        Debug.Log("yakoosa health before: " + currentHealth);
+        currentHealth = Mathf.Clamp(currentHealth + changeInHealth, 0, maxHealth);
+        Debug.Log("yakoosa health after " + currentHealth);
+    }
+
+    
 
 }
